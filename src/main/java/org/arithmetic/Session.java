@@ -38,7 +38,7 @@ public class Session {
         return this.numQues;
     }
 
-    public void setOpList(String op) {
+    public void setOpList(String op) throws AppException {
         OperatorList opList = new OperatorList(op);
         this.opList = opList;
     }
