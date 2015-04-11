@@ -5,9 +5,15 @@ import java.lang.StringBuilder;
 
 import org.arithmetic.exception.AppException;
 
+/**
+ * List of operators to be used during a session.
+ * The accepted operators are '+-/*'
+ * The default operators are '+-'
+ */
 class OperatorList {
 
     private boolean[] opList;
+
     private static final String ALLOPS = "+-/*";
     private static final int OPLEN = 4;
 
@@ -20,6 +26,12 @@ class OperatorList {
         this.opList[3] = false; // *
     }
 
+    /**
+     * Make an OperatorList from a list of operator symbols passed in as string.
+     * The accepted operators are "+-/*"
+     *
+     * @param   opStr   The string containing the operator symbols
+     */
     public OperatorList(String opStr) throws AppException {
         if (opStr == null)
             throw new AppException("Operator string is null.");
@@ -72,6 +84,11 @@ class OperatorList {
         }
     }
 
+    /**
+     * String representation of the OperatorList
+     *
+     * @return  String representation of OperatorList
+     */
     public String toString() {
         if (this.opList == null) {
             return null;
