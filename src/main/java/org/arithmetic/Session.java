@@ -2,6 +2,8 @@ package org.arithmetic;
 
 import java.lang.String;
 
+import org.arithmetic.exception.AppException;
+
 import org.arithmetic.OperatorList;
 import org.arithmetic.PenaltyMap;
 import org.arithmetic.Stats;
@@ -14,10 +16,9 @@ public class Session {
     Stats stats;
     PenaltyMap penMap;
 
-    public void setMaxRange(int r) {
+    public void setMaxRange(int r) throws AppException {
         if (r <= 0) {
-            // Throw exception
-            return;
+            throw new AppException("Max range should be positive.");
         }
         this.maxRange = r;
     }
@@ -26,10 +27,9 @@ public class Session {
         return this.maxRange;
     }
 
-    public void setNumQues(int n) {
+    public void setNumQues(int n) throws AppException {
         if (n <= 0) {
-            // Throw exception
-            return;
+            throw new AppException("Num of question should be positive.");
         }
         this.numQues = n;
     }
@@ -51,4 +51,3 @@ public class Session {
         return this.stats;
     }
 }
-
