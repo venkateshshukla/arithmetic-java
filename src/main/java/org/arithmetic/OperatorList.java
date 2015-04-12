@@ -44,7 +44,8 @@ class OperatorList {
         boolean[] ops = new boolean[OPLEN];
         int i = -1, j;
         for (j = 0; j < OPLEN; j++) {
-            i = s.indexOf(ALLOPS.charAt(j));
+            // get char at index j as a substring
+            i = sb.indexOf(ALLOPS.substring(j, j + 1));
             if (i == -1) {
                 ops[j] = false;
             } else {
@@ -67,20 +68,23 @@ class OperatorList {
             throw new AppException("Operator string has repeated/garbage chars" + s1);
         }
 
-        // At least one of the operators must be true.
+        /* At least one of the operators must be true. This would helpful in
+         * case the above exception is removed later.
+         */
         boolean b = false;
         for (j = 0; j < OPLEN; j++) {
-            b = b | opList[j];
+            b = b | ops[j];
         }
         if (!b) {
             throw new AppException("Specify at least one operator");
         }
 
-        // If this point is reached, it is finally safe to initialise instance
-        // variable
+        /* If this point is reached, it is finally safe to initialise instance
+         * variable
+         */
         opList = new boolean[OPLEN];
         for (j = 0; j < OPLEN; j++) {
-            this.opList[j] = ops[i];
+            this.opList[j] = ops[j];
         }
     }
 
