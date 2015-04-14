@@ -1,11 +1,14 @@
 package org.arithmetic;
 
 import java.lang.String;
+import java.lang.System;
+import java.util.Random;
 
 import org.arithmetic.OperatorList;
 import org.arithmetic.PenaltyMap;
 import org.arithmetic.Stats;
 import org.arithmetic.exception.AppException;
+import org.arithmetic.defaults.Defaults;
 
 public class Session {
 
@@ -14,6 +17,7 @@ public class Session {
     OperatorList opList;
     Stats stats;
     PenaltyMap penMap;
+    Random random;
 
     public void setMaxRange(int r) throws AppException {
         if (r <= 0) {
@@ -42,11 +46,41 @@ public class Session {
         this.opList = opList;
     }
 
+    public void setOpList() throws AppException {
+        OperatorList opList = new OperatorList();
+        this.opList = opList;
+    }
+
     public String getOpList() {
         return this.opList.toString();
     }
 
     public Stats getStats() {
         return this.stats;
+    }
+
+    public Session(short numQues, int maxRange) throws AppException {
+        setMaxRange(maxRange);
+        setNumQues(numQues);
+        setOpList();
+        this.stats = new Stats();
+        this.penMap = new PenaltyMap();
+        this.random = new Random(System.currentTimeMillis());
+    }
+
+    public Session(int maxRange, short numQues) throws AppException {
+        this(numQues, maxRange);
+    }
+
+    public Session(int maxRange) throws AppException {
+        this(Defaults.NUM_QUES, maxRange);
+    }
+
+    public Session(short numQues) throws AppException {
+        this(numQues, Defaults.MAX_RANGE);
+    }
+
+    public Session() throws AppException {
+        this(Defaults.NUM_QUES, Defaults.MAX_RANGE);
     }
 }
