@@ -4,6 +4,7 @@ import java.lang.String;
 import java.lang.StringBuilder;
 
 import org.arithmetic.exception.AppException;
+import org.arithmetic.defaults.Defaults;
 
 /**
  * List of operators to be used during a session.
@@ -14,11 +15,8 @@ class OperatorList {
 
     private boolean[] opList;
 
-    private static final String ALLOPS = "+-/*";
-    private static final int OPLEN = 4;
-
     public OperatorList() {
-        this.opList = new boolean[OPLEN];
+        this.opList = new boolean[Defaults.ALL_OPS_LEN];
         // By default, add and subtract are supported.
         this.opList[0] = true;  // +
         this.opList[1] = true;  // -
@@ -41,11 +39,11 @@ class OperatorList {
             throw new AppException("Operator string is empty.");
 
         StringBuilder sb = new StringBuilder(s);
-        boolean[] ops = new boolean[OPLEN];
+        boolean[] ops = new boolean[Defaults.ALL_OPS_LEN];
         int i = -1, j;
-        for (j = 0; j < OPLEN; j++) {
+        for (j = 0; j < Defaults.ALL_OPS_LEN; j++) {
             // get char at index j as a substring
-            i = sb.indexOf(ALLOPS.substring(j, j + 1));
+            i = sb.indexOf(Defaults.ALL_OPS.substring(j, j + 1));
             if (i == -1) {
                 ops[j] = false;
             } else {
@@ -72,7 +70,7 @@ class OperatorList {
          * case the above exception is removed later.
          */
         boolean b = false;
-        for (j = 0; j < OPLEN; j++) {
+        for (j = 0; j < Defaults.ALL_OPS_LEN; j++) {
             b = b | ops[j];
         }
         if (!b) {
@@ -82,8 +80,8 @@ class OperatorList {
         /* If this point is reached, it is finally safe to initialise instance
          * variable
          */
-        opList = new boolean[OPLEN];
-        for (j = 0; j < OPLEN; j++) {
+        opList = new boolean[Defaults.ALL_OPS_LEN];
+        for (j = 0; j < Defaults.ALL_OPS_LEN; j++) {
             this.opList[j] = ops[j];
         }
     }
@@ -99,9 +97,9 @@ class OperatorList {
         }
         int i;
         StringBuilder sb = new StringBuilder();
-        for (i = 0; i < OPLEN; i++) {
+        for (i = 0; i < Defaults.ALL_OPS_LEN; i++) {
             if (this.opList[i]) {
-                sb.append(ALLOPS.charAt(i));
+                sb.append(Defaults.ALL_OPS.charAt(i));
             }
         }
         return sb.toString();
