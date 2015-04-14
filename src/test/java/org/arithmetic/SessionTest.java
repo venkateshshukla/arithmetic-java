@@ -37,25 +37,25 @@ public class SessionTest {
 
     @Test(expected = AppException.class)
     public void zeroNumQuesTest() throws AppException {
-        int n = 0;
+        short n = 0;
         Session s = new Session();
         s.setNumQues(n);
     }
 
     @Test(expected = AppException.class)
     public void negNumQuesTest() throws AppException {
-        int n = -5;
+        short n = -5;
         Session s = new Session();
         s.setNumQues(n);
     }
 
     @Test
     public void posNumQuesTest() throws AppException {
-        int n = 5;
+        short n = 5;
         Session s = new Session();
         s.setNumQues(n);
 
-        int testRes = s.getNumQues();
+        short testRes = s.getNumQues();
 
         assertEquals(testRes, n);
     }
