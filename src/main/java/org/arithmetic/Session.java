@@ -122,13 +122,15 @@ public class Session {
         qTime = System.currentTimeMillis();
         uAns = sc.nextInt();
         while (uAns != rAns) {
-            // Add this to statistics
-            // Add penalty for this question
+            aTime = System.currentTimeMillis();
+            stats.addWrong(q, qTime, aTime);
+            penMap.addPenalty(q);
             System.out.println("What??");
             uAns = sc.nextInt();
         }
         aTime = System.currentTimeMillis();
-        // Add this to statistics
+        stats.addRight(q, qTime, aTime);
+        penMap.remPenalty(q);
         System.out.println("Correct.");
     }
 }
