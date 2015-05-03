@@ -94,6 +94,5 @@ class OperatorList {
         } else {
             return this.opStr;
         }
-        }
     }
 }
