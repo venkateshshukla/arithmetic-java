@@ -7,48 +7,51 @@ import org.arithmetic.exception.AppException;
 import org.arithmetic.defaults.Defaults;
 
 /**
- * List of operators to be used during a session.
+ * List of operators to be used during a session
  * The accepted operators are '+-/*'
  * The default operators are '+-'
  */
 class OperatorList {
 
-    private boolean[] opList;
+    private int opLen;
+    private String opStr;
 
     public OperatorList() {
-        this.opList = new boolean[Defaults.ALL_OPS_LEN];
-        // By default, add and subtract are supported.
-        this.opList[0] = true;  // +
-        this.opList[1] = true;  // -
-        this.opList[2] = false; // /
-        this.opList[3] = false; // *
+        this.opLen = Defaults.DEF_OPS_LEN;
+        this.opStr = Defaults.DEF_OPS;
     }
 
     /**
-     * Make an OperatorList from a list of operator symbols passed in as string.
+     * Make an OperatorList from a list of operator symbols passed in as string
      * The accepted operators are "+-/*"
      *
      * @param   opStr   The string containing the operator symbols
      */
     public OperatorList(String opStr) throws AppException {
-        if (opStr == null)
+        if (opStr == null) {
             throw new AppException("Operator string is null.");
+        }
 
         String s = opStr.trim();
-        if (s.isEmpty())
+        if (s.isEmpty()) {
             throw new AppException("Operator string is empty.");
+        }
 
         StringBuilder sb = new StringBuilder(s);
-        boolean[] ops = new boolean[Defaults.ALL_OPS_LEN];
+        StringBuilder sbOps = new StringBuilder();
+
+        int nOps = 0;
         int i = -1, j;
+        char c;
         for (j = 0; j < Defaults.ALL_OPS_LEN; j++) {
-            // get char at index j as a substring
-            i = sb.indexOf(Defaults.ALL_OPS.substring(j, j + 1));
-            if (i == -1) {
-                ops[j] = false;
-            } else {
-                ops[j] = true;
+            // As ALL_OPS string is used, the resultant op string will have same
+            // order no matter what the input string is.
+            c = Defaults.ALL_OPS.charAt(j);
+            i = sb.indexOf(String.valueOf(c));
+            if (i != -1) {
+                nOps ++;
                 sb.deleteCharAt(i);
+                sbOps.append(c);
             }
         }
 
@@ -69,21 +72,15 @@ class OperatorList {
         /* At least one of the operators must be true. This would helpful in
          * case the above exception is removed later.
          */
-        boolean b = false;
-        for (j = 0; j < Defaults.ALL_OPS_LEN; j++) {
-            b = b | ops[j];
-        }
-        if (!b) {
+        if (nOps == 0) {
             throw new AppException("Specify at least one operator");
         }
 
         /* If this point is reached, it is finally safe to initialise instance
          * variable
          */
-        opList = new boolean[Defaults.ALL_OPS_LEN];
-        for (j = 0; j < Defaults.ALL_OPS_LEN; j++) {
-            this.opList[j] = ops[j];
-        }
+        this.opStr = sbOps.toString();
+        this.opLen = nOps;
     }
 
     /**
@@ -92,16 +89,11 @@ class OperatorList {
      * @return  String representation of OperatorList
      */
     public String toString() {
-        if (this.opList == null) {
+        if (this.opStr == null) {
             return null;
+        } else {
+            return this.opStr;
         }
-        int i;
-        StringBuilder sb = new StringBuilder();
-        for (i = 0; i < Defaults.ALL_OPS_LEN; i++) {
-            if (this.opList[i]) {
-                sb.append(Defaults.ALL_OPS.charAt(i));
-            }
         }
-        return sb.toString();
     }
 }
