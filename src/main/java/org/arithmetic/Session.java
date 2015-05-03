@@ -3,9 +3,11 @@ package org.arithmetic;
 import java.lang.String;
 import java.lang.System;
 import java.util.Random;
+import java.util.Scanner;
 
 import org.arithmetic.OperatorList;
 import org.arithmetic.PenaltyMap;
+import org.arithmetic.Question;
 import org.arithmetic.Stats;
 import org.arithmetic.exception.AppException;
 import org.arithmetic.defaults.Defaults;
@@ -82,5 +84,51 @@ public class Session {
 
     public Session() throws AppException {
         this(Defaults.NUM_QUES, Defaults.MAX_RANGE);
+    }
+
+    private int randInt() {
+        int r = random.nextInt(this.maxRange + 1);
+        return r;
+    }
+
+    private char randOp() throws AppException {
+        int r = random.nextInt(this.opList.getOpLen());
+        char c = opList.getOpChar(r);
+        return c;
+    }
+
+    private Question getQuestion() throws AppException {
+        return new Question(randInt(), randInt(), randOp());
+    }
+
+    public void ask() throws AppException {
+        String s;
+        Scanner sc;
+        long qTime, aTime;
+        Question q;
+        int uAns, rAns;
+
+        sc = new Scanner(System.in);
+        q = getQuestion();
+        rAns = q.getAns();
+
+        if (random.nextInt(2) == 0) {
+            s = String.format("%s %c %d = ", q.getLop(), q.getOp(), q.getHop());
+        } else {
+            s = String.format("%s %c %d = ", q.getHop(), q.getOp(), q.getLop());
+        }
+
+        System.out.print(s);
+        qTime = System.currentTimeMillis();
+        uAns = sc.nextInt();
+        while (uAns != rAns) {
+            // Add this to statistics
+            // Add penalty for this question
+            System.out.println("What??");
+            uAns = sc.nextInt();
+        }
+        aTime = System.currentTimeMillis();
+        // Add this to statistics
+        System.out.println("Correct.");
     }
 }

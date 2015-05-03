@@ -95,4 +95,28 @@ class OperatorList {
             return this.opStr;
         }
     }
+
+    /**
+     * Length of the OperatorList
+     *
+     * @return Length of the OperatorList
+     */
+    public int getOpLen() {
+        return this.opLen;
+    }
+
+    /**
+     * Operator at a given index
+     * Index must be less then OperatorList length
+     *
+     * @param  idx  The index at which the char is required.
+     * @return The character at given index in the OperatorList.
+     */
+    public char getOpChar(int idx) throws AppException {
+        if (idx >= this.opLen) {
+            throw new AppException("Index out of bounds for the operator string.");
+        } else {
+            return this.opStr.charAt(idx);
+        }
+    }
 }
