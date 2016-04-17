@@ -26,3 +26,6 @@ gradle-app.setting
 
 # vim swap files
 *.swp
+
+# Intellij File
+local.properties
