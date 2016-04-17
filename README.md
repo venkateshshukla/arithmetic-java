@@ -4,3 +4,4 @@
 
 Object oriented approach to the standard Unix game `arithmetic`.
 
+17/04/2016 Starting from scratch again.
