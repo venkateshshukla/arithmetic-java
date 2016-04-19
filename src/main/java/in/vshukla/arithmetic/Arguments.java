@@ -96,13 +96,20 @@ public class Arguments {
         }
     }
 
-    public void addOperator(String op) throws InvalidOperatorException {
-        for (int i = 0; i < op.length(); i++) {
-            this.operatorList.add(Operator.fromChar(op.charAt(i)));
+    public void addOperator(String op) throws InvalidValueException {
+        if (StringUtils.isBlank(op)) {
+            throw new InvalidValueException("Operator string is null or blank.");
         }
+        if (op.length() != 1) {
+            throw new InvalidValueException("Operator string must be of length 1.");
+        }
+        addOperator(op.charAt(0));
     }
 
     public void addOperator(char op) throws InvalidOperatorException {
+        if (this.operatorList == null) {
+            this.operatorList = new ArrayList<>();
+        }
         this.operatorList.add(Operator.fromChar(op));
     }
 }

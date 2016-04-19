@@ -8,24 +8,24 @@ import in.vshukla.arithmetic.exception.InvalidOperatorException;
  * Created by venkatesh on 17/4/16.
  */
 public enum Operator {
-    ADD("+", "Addition"),
-    SUBTRACT("-", "Subtraction"),
-    MULTIPLY("x", "Multiplication"),
-    DIVIDE("/", "Division");
+    ADD('+', "Addition"),
+    SUBTRACT('-', "Subtraction"),
+    MULTIPLY('x', "Multiplication"),
+    DIVIDE('/', "Division");
 
-    private String symbol;
+    private char symbol;
     private String operation;
 
-    private Operator(String symbol, String operation) {
+    private Operator(char symbol, String operation) {
         this.symbol = symbol;
         this.operation = operation;
     }
 
-    public String getSymbol() {
+    public char getSymbol() {
         return symbol;
     }
 
-    public void setSymbol(String symbol) {
+    public void setSymbol(char symbol) {
         this.symbol = symbol;
     }
 
@@ -37,16 +37,12 @@ public enum Operator {
         this.operation = operation;
     }
 
-    public static Operator fromString(String op) throws InvalidOperatorException{
-        if (StringUtils.isNotBlank(op)) {
-            for (Operator o : Operator.values()) {
-                if (o.symbol.equals(op)) {
-                    return o;
-                }
+    public static Operator fromChar(char op) throws InvalidOperatorException{
+        for (Operator o : Operator.values()) {
+            if (o.symbol == op) {
+                return o;
             }
-            throw new InvalidOperatorException("Invalid operator : " + op);
-        } else {
-            throw new InvalidOperatorException("Empty operator");
         }
+        throw new InvalidOperatorException("Invalid operator : " + op);
     }
 }

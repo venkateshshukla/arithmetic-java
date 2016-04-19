@@ -213,6 +213,7 @@ public class ArgumentsTest {
         }
         for (String s : opListAll) {
             arguments.setOperatorString(s);
+            Assert.assertEquals(s, arguments.getOperatorString());
         }
     }
 
@@ -235,17 +236,58 @@ public class ArgumentsTest {
     }
 
     @Test
-    public void testAddOperator() throws Exception {
+    public void testAddOperatorCharValid() throws Exception {
+        Operator[] operators = Operator.values();
+        char[] ops = new char[operators.length];
+        for (int i = 0; i < operators.length; i++) {
+            ops[i] = operators[i].getSymbol();
+        }
+        for (int i = 0; i < ops.length; i++) {
+            arguments.addOperator(ops[i]);
+            Assert.assertTrue(arguments.getOperatorString().contains("" + ops[i]));
+        }
+    }
 
+    @Test(expectedExceptions = InvalidValueException.class)
+    public void testAddOperatorCharInvalid() throws Exception {
+        char op = '%';
+        arguments.addOperator(op);
+    }
+
+    @Test(expectedExceptions = InvalidValueException.class)
+    public void testAddOperatorStringNull() throws Exception {
+        String op = null;
+        arguments.addOperator(op);
+    }
+
+    @Test(expectedExceptions = InvalidValueException.class)
+    public void testAddOperatorStringEmpty() throws Exception {
+        String op = "";
+        arguments.addOperator(op);
+    }
+
+    @Test(expectedExceptions = InvalidValueException.class)
+    public void testAddOperatorStringSpace() throws Exception {
+        String op = " ";
+        arguments.addOperator(op);
+    }
+
+    @Test(expectedExceptions = InvalidValueException.class)
+    public void testAddOperatorStringLongString() throws Exception {
+        String op = "ab";
+        arguments.addOperator(op);
     }
 
     @Test
-    public void testSetNumQuestionsString() throws Exception {
-
-    }
-
-    @Test
-    public void testSetRangeString() throws Exception {
-
+    public void testAddOperatorStringValid() throws Exception {
+        Operator[] operators = Operator.values();
+        char[] ops = new char[operators.length];
+        for (int i = 0; i < operators.length; i++) {
+            ops[i] = operators[i].getSymbol();
+        }
+        for (int i = 0; i < ops.length; i++) {
+            arguments.addOperator("" + ops[i]);
+            Assert.assertTrue(arguments.getOperatorString().contains("" + ops[i]));
+        }
     }
 }
