@@ -1,0 +1,8 @@
+19/04/2016
+
+1.	Should repeated operators be allowed?
+
+	If repeated operators are allowed, multiple appearance of an operator may
+	give it more probability of appearance. For now, this is left as is, i.e, no
+	limitations are added whatsoever on repetition of operators in List or String
+	format.
