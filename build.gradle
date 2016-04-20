@@ -9,3 +9,9 @@ dependencies {
     testCompile 'org.testng:testng:6.9.6'
     testCompile 'org.mockito:mockito-core:1.10.19'
 }
+
+test {
+    useTestNG() {
+        suites 'src/test/resources/testng.xml'
+    }
+}

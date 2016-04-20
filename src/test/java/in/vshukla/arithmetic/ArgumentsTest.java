@@ -1,12 +1,9 @@
 package in.vshukla.arithmetic;
 
-import com.sun.org.apache.xpath.internal.Arg;
-
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
