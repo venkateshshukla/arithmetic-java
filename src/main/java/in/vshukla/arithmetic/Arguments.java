@@ -96,6 +96,16 @@ public class Arguments {
         }
     }
 
+    public void addOperator(Operator op) throws InvalidValueException {
+        if (op == null) {
+            throw new InvalidValueException("Cannot set null Operator");
+        }
+        if (this.operatorList == null) {
+            this.operatorList = new ArrayList<Operator>();
+        }
+        this.operatorList.add(op);
+    }
+
     public void addOperator(String op) throws InvalidValueException {
         if (StringUtils.isBlank(op)) {
             throw new InvalidValueException("Operator string is null or blank.");
