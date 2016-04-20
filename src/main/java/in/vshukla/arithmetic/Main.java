@@ -37,7 +37,7 @@ public class Main {
 		return sb.toString();
 	}
 
-	private static Arguments parseCmdArgs(String[] args) throws InvalidParameterException, InvalidOperatorException, InvalidValueException {
+	private static Arguments parseCmdArgs(String[] args) throws InvalidValueException {
 		Arguments arguments = new Arguments();
 		for (int i = 0; i < args.length; i++) {
 			String a = args[i];

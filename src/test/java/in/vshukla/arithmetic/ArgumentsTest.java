@@ -1,9 +1,12 @@
 package in.vshukla.arithmetic;
 
+import com.sun.org.apache.xpath.internal.Arg;
+
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
@@ -289,5 +292,65 @@ public class ArgumentsTest {
             arguments.addOperator("" + ops[i]);
             Assert.assertTrue(arguments.getOperatorString().contains("" + ops[i]));
         }
+    }
+
+    @Test
+    public void testAddOperatorStringNullList() throws Exception {
+        Arguments arguments = new Arguments();
+        char op = Operator.ADD.getSymbol();
+        arguments.addOperator("" + op);
+        Assert.assertNotNull(arguments.getOperatorList());
+        Assert.assertFalse(arguments.getOperatorList().isEmpty());
+        Assert.assertTrue(arguments.getOperatorList().contains(Operator.ADD));
+        Assert.assertTrue(arguments.getOperatorString().contains("" + op));
+    }
+
+    @Test(expectedExceptions = InvalidValueException.class)
+    public void testSetOperatorListNull() throws InvalidValueException {
+        List<Operator> opList = null;
+        arguments.setOperatorList(opList);
+    }
+
+    @Test(expectedExceptions = InvalidValueException.class)
+    public void testSetOperatorListEmpty() throws InvalidValueException {
+        List<Operator> opList = new ArrayList<>();
+        arguments.setOperatorList(opList);
+    }
+
+    @Test
+    public void testSetOperatorListValid() throws InvalidValueException {
+        List<Operator> opList = new ArrayList<>();
+        opList.add(Operator.ADD);
+        opList.add(Operator.MULTIPLY);
+        arguments.setOperatorList(opList);
+        Assert.assertNotNull(arguments.getOperatorList());
+        Assert.assertFalse(arguments.getOperatorList().isEmpty());
+        Assert.assertTrue(arguments.getOperatorList().contains(Operator.ADD));
+        Assert.assertTrue(arguments.getOperatorList().contains(Operator.MULTIPLY));
+    }
+
+    @Test(expectedExceptions = InvalidValueException.class)
+    public void testAddOperatorNull() throws InvalidValueException {
+        Operator op = null;
+        arguments.addOperator(op);
+    }
+
+    @Test
+    public void testAddOperatorValid() throws InvalidValueException {
+        arguments.addOperator(Operator.SUBTRACT);
+        arguments.addOperator(Operator.DIVIDE);
+        Assert.assertNotNull(arguments.getOperatorList());
+        Assert.assertFalse(arguments.getOperatorList().isEmpty());
+        Assert.assertTrue(arguments.getOperatorList().contains(Operator.SUBTRACT));
+        Assert.assertTrue(arguments.getOperatorList().contains(Operator.DIVIDE));
+    }
+
+    @Test
+    public void testAddOperatorValidNullList() throws InvalidValueException {
+        arguments = new Arguments();
+        arguments.addOperator(Operator.SUBTRACT);
+        Assert.assertNotNull(arguments.getOperatorList());
+        Assert.assertFalse(arguments.getOperatorList().isEmpty());
+        Assert.assertTrue(arguments.getOperatorList().contains(Operator.SUBTRACT));
     }
 }
